@@ -1,54 +1,54 @@
-// открытие полного комментария
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.comment_text_card').forEach((card) => {
-        const textEl = card.querySelector('.comment_text');
-        const btn = card.querySelector('.read_more_btn');
-        let expanded = false;
-        let collapsedHeight = 0;
+// // открытие полного комментария
+// document.addEventListener('DOMContentLoaded', () => {
+//     document.querySelectorAll('.comment_text_card').forEach((card) => {
+//         const textEl = card.querySelector('.comment_text');
+//         const btn = card.querySelector('.read_more_btn');
+//         let expanded = false;
+//         let collapsedHeight = 0;
 
-        requestAnimationFrame(() => {
-            const isClamped = textEl.scrollHeight > textEl.clientHeight + 1;
-            if (!isClamped) {
-                btn.remove();
-                return;
-            }
-            collapsedHeight = textEl.clientHeight;
-            textEl.style.maxHeight = collapsedHeight + 'px';
-            btn.classList.add('is-visible');
-        });
+//         requestAnimationFrame(() => {
+//             const isClamped = textEl.scrollHeight > textEl.clientHeight + 1;
+//             if (!isClamped) {
+//                 btn.remove();
+//                 return;
+//             }
+//             collapsedHeight = textEl.clientHeight;
+//             textEl.style.maxHeight = collapsedHeight + 'px';
+//             btn.classList.add('is-visible');
+//         });
 
-        btn.addEventListener('click', () => {
-            expanded = !expanded;
+//         btn.addEventListener('click', () => {
+//             expanded = !expanded;
 
-            if (expanded) {
-                textEl.classList.add('is-expanded');
-                const fullHeight = textEl.scrollHeight;
-                requestAnimationFrame(() => {
-                    textEl.style.maxHeight = fullHeight + 'px';
-                });
-            } else {
-                const fullHeight = textEl.scrollHeight;
-                textEl.style.maxHeight = fullHeight + 'px';
-                textEl.offsetHeight; 
+//             if (expanded) {
+//                 textEl.classList.add('is-expanded');
+//                 const fullHeight = textEl.scrollHeight;
+//                 requestAnimationFrame(() => {
+//                     textEl.style.maxHeight = fullHeight + 'px';
+//                 });
+//             } else {
+//                 const fullHeight = textEl.scrollHeight;
+//                 textEl.style.maxHeight = fullHeight + 'px';
+//                 textEl.offsetHeight;
 
-                requestAnimationFrame(() => {
-                    textEl.style.maxHeight = collapsedHeight + 'px';
-                });
-            }
+//                 requestAnimationFrame(() => {
+//                     textEl.style.maxHeight = collapsedHeight + 'px';
+//                 });
+//             }
 
-            btn.textContent = expanded ? 'Свернуть' : 'Читать полностью';
-        });
+//             btn.textContent = expanded ? 'Свернуть' : 'Читать полностью';
+//         });
 
-        textEl.addEventListener('transitionend', (e) => {
-            if (e.propertyName !== 'max-height') return;
-            if (expanded) {
-                textEl.style.maxHeight = 'none'; 
-            } else {
-                textEl.classList.remove('is-expanded'); 
-            }
-        });
-    });
-});
+//         textEl.addEventListener('transitionend', (e) => {
+//             if (e.propertyName !== 'max-height') return;
+//             if (expanded) {
+//                 textEl.style.maxHeight = 'none';
+//             } else {
+//                 textEl.classList.remove('is-expanded');
+//             }
+//         });
+//     });
+// });
 
 // видео
 document.addEventListener('DOMContentLoaded', () => {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeCard(card) {
         const answer = card.querySelector('.text_block--v7_faq_answer');
         answer.style.maxHeight = answer.scrollHeight + 'px';
-        answer.offsetHeight; 
+        answer.offsetHeight;
         requestAnimationFrame(() => {
             answer.style.maxHeight = '0px';
         });
@@ -288,13 +288,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const monthsGrid = calendar.querySelector('.mini_calendar_months_grid');
     const yearsList = calendar.querySelector('.mini_calendar_years_list');
 
-    let activeField = null;   
-    let viewMonth = 6;      
+    let activeField = null;
+    let viewMonth = 6;
     let viewYear = 2026;
-    let selectedDates = {};  
+    let selectedDates = {};
 
     popup.querySelectorAll('.date_field').forEach(function (field) {
-        const raw = field.dataset.date; 
+        const raw = field.dataset.date;
         if (raw) {
             const [y, m, d] = raw.split('-').map(Number);
             selectedDates[field.dataset.field] = { y: y, m: m - 1, d: d };
@@ -497,5 +497,108 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         console.log('Отправка записи на сессию:', payload);
+    });
+});
+// блюр
+document.addEventListener('DOMContentLoaded', () => {
+    const popupBackground = document.getElementById('sessionPopup');
+    const popup = document.querySelector('.popup_session');
+    const footer = document.querySelector('.session_form_footer');
+    if (!popupBackground || !popup || !footer) return;
+
+    function updateFooterFade() {
+        const hasMore = popup.scrollHeight - popup.scrollTop - popup.clientHeight > 4;
+        footer.classList.toggle('has-more-content', hasMore);
+    }
+
+    popup.addEventListener('scroll', updateFooterFade);
+    window.addEventListener('resize', updateFooterFade);
+    new MutationObserver(updateFooterFade).observe(popupBackground, { attributes: true, attributeFilter: ['class'] });
+    updateFooterFade();
+});
+
+// маска
+document.addEventListener('DOMContentLoaded', () => {
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+
+    function formatPhone(rawValue) {
+        let digits = rawValue.replace(/\D/g, '');
+        if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+        if (digits && !digits.startsWith('7')) digits = '7' + digits;
+        digits = digits.slice(0, 11).slice(1);
+
+        if (!digits) return '';
+
+        let result = '+7 (' + digits.slice(0, 3);
+        if (digits.length >= 3) result += ')';
+        if (digits.length > 3) result += ' ' + digits.slice(3, 6);
+        if (digits.length > 6) result += '-' + digits.slice(6, 8);
+        if (digits.length > 8) result += '-' + digits.slice(8, 10);
+
+        return result;
+    }
+
+    phoneInputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            input.value = formatPhone(input.value);
+        });
+
+        input.addEventListener('focus', () => {
+            if (!input.value) input.value = '+7 (';
+        });
+
+        input.addEventListener('blur', () => {
+            const digits = input.value.replace(/\D/g, '').slice(1);
+            if (!digits) input.value = '';
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && input.value === '+7 (') {
+                e.preventDefault();
+                input.value = '';
+            }
+        });
+    });
+});
+
+// comment popup
+document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('commentPopup');
+    const popupAvatar = popup.querySelector('.popup_comment_avatar');
+    const popupName = popup.querySelector('.popup_comment_name');
+    const popupRole = popup.querySelector('.popup_comment_role');
+    const popupText = popup.querySelector('.popup_comment_text');
+
+    document.querySelectorAll('.comment_text_card').forEach((card) => {
+        const textEl = card.querySelector('.comment_text');
+        const btn = card.querySelector('.read_more_btn');
+
+        requestAnimationFrame(() => {
+            const isClamped = textEl.scrollHeight > textEl.clientHeight + 1;
+            if (!isClamped) {
+                btn.remove();
+                return;
+            }
+            btn.classList.add('is-visible');
+        });
+
+        btn.addEventListener('click', () => {
+            popupAvatar.src = card.querySelector('.image_user img').src;
+            popupName.textContent = card.querySelector('.minimum_info_user h4').textContent;
+            popupRole.textContent = card.querySelector('.minimum_info_user p').textContent;
+
+            popupText.innerHTML = '';
+            textEl.textContent
+                .split(/\n\s*\n/)
+                .map((p) => p.trim())
+                .filter(Boolean)
+                .forEach((paragraph) => {
+                    const p = document.createElement('p');
+                    p.textContent = paragraph;
+                    popupText.appendChild(p);
+                });
+
+            popup.classList.add('active');
+        });
     });
 });

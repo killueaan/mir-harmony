@@ -46,8 +46,18 @@
                             <li class="nav__item">
                                 <a class="nav__link" href="child_club.html">Детский клуб</a>
                             </li>
-                            <li class="nav__item">
+                            <li class="nav__item nav__item--dropdown flex_row">
                                 <a class="nav__link" href="events.html">Мероприятия</a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22"
+                                    fill="none">
+                                    <path
+                                        d="M6 10L10.1678 13.7047C10.3573 13.8731 10.6427 13.8731 10.8322 13.7047L15 10"
+                                        stroke="#2C2C2C" stroke-linecap="round" />
+                                </svg>
+                                <ul class="nav__dropdown">
+                                    <li><a href="events.html">Аромапсихолог</a></li>
+                                    <li><a href="events.html">Квантовый психолог</a></li>
+                                </ul>
                             </li>
                             <li class="nav__item">
                                 <a class="nav__link" href="team.html">Команда</a>
@@ -471,6 +481,28 @@
                     <button class="read_more_btn text-body fw-medium" type="button">Читать полностью</button>
 
                 </div>
+                <div class="popup_background" id="commentPopup">
+                    <div class="popup_comment card flex_column pad_24 gap_16">
+                        <button type="button" class="popup_close" aria-label="Закрыть">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+                                fill="none">
+                                <path d="M13 13L1 1M13 1L1 13" stroke="RGBA(72, 160, 255, 1)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <div class="general_info_user flex_row gap_16">
+                            <div class="image_user">
+                                <img class="popup_comment_avatar" src="" alt="">
+                            </div>
+                            <div class="minimum_info_user flex_column gap_4">
+                                <h4 class="text-h4 fw-semibold popup_comment_name"></h4>
+                                <p class="text-micro fw-medium popup_comment_role"></p>
+                            </div>
+                        </div>
+                        <div class="popup_comment_text text-micro fw-reg"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="section top_pad">
@@ -797,7 +829,7 @@
                         <div class="social_media_section flex_column gap_12">
                             <p class="title text-body fw-reg">Мы в соцсетях:</p>
                             <div class="social_media_blocks flex_row gap_32">
-                                <div class="social_media_block flex_row gap_8">
+                                <a href="#" target="_blank" class="social_media_block flex_row gap_8">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
                                         fill="none">
                                         <g clip-path="url(#clip0_229_15040)">
@@ -820,8 +852,8 @@
                                         </defs>
                                     </svg>
                                     <p class="fw-semibold">Telegram</p>
-                                </div>
-                                <div class="social_media_block flex_row gap_8">
+                                </a>
+                                <a href="#" target="_blank" class="social_media_block flex_row gap_8">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
                                         fill="none">
                                         <g clip-path="url(#clip0_229_15045)">
@@ -839,8 +871,8 @@
                                         </defs>
                                     </svg>
                                     <p class="fw-semibold">VK</p>
-                                </div>
-                                <div class="social_media_block flex_row gap_8">
+                                </a>
+                                <a href="#" target="_blank" class="social_media_block flex_row gap_8">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
                                         fill="none">
                                         <path
@@ -848,7 +880,7 @@
                                             fill="#25D366" />
                                     </svg>
                                     <p class="fw-semibold">WhatsApp</p>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -866,10 +898,11 @@
                                 Компания
                             </p>
                             <ul class="flex_column gap_16">
-                                <li class="text-h3 fw-semibold"><a href="services.html">Услуги</a></li>
-                                <li class="text-h3 fw-semibold"><a href="team.html">Специалисты</a></li>
-                                <li class="text-h3 fw-semibold"><a href="#">Документация</a></li>
-                                <li class="text-h3 fw-semibold"><a href="child_club.html">Детский клуб</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="services.html">Услуги</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="team.html">Специалисты</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="#">Документация</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="child_club.html">Детский клуб</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="footer__menu_block flex_column gap_12">
@@ -878,7 +911,8 @@
                                 Юридическая информация
                             </p>
                             <ul>
-                                <li class="policy_link fw-semibold"><a href="#">Политика конфиденциальности</a>
+                                <li class="footer_link policy_link fw-semibold"><a href="#">Политика
+                                        конфиденциальности</a>
                                 </li>
                             </ul>
                         </div>
@@ -889,16 +923,19 @@
                                 Инфраструктура
                             </p>
                             <ul class="flex_column gap_16">
-                                <li class="text-h3 fw-semibold"><a href="events.html">Мероприятия</a></li>
-                                <li class="text-h3 fw-semibold"><a href="child_club.html">Детский клуб</a></li>
-                                <li class="text-h3 fw-semibold"><a href="master_classes.html">Мастер-классы</a></li>
-                                <li class="text-h3 fw-semibold"><a href="contacts.html">Контакты</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="events.html">Мероприятия</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="child_club.html">Детский клуб</a>
+                                </li>
+                                <li class="footer_link text-h3 fw-semibold"><a
+                                        href="master_classes.html">Мастер-классы</a></li>
+                                <li class="footer_link text-h3 fw-semibold"><a href="contacts.html">Контакты</a></li>
                             </ul>
                         </div>
-                        <div class="footer-copy__right">
+                        <a target="_blank" href="https://ontape-design.ru" class="footer-copy__right">
                             <p class="text-micro-super fw-reg">Разработано веб-студией</p>
-                            <a target="_blank" href="https://ontape-design.ru"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="160" height="27" viewBox="0 0 160 27" fill="none">
+                            <div class="copy__right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="160" height="27" viewBox="0 0 160 27"
+                                    fill="none">
                                     <path
                                         d="M74.6479 0.0839844C76.4691 0.0839844 78.2902 0.120208 80.1114 0.210769C81.2449 0.265105 82.1555 1.1526 82.2112 2.25743C82.3599 5.08292 82.3599 7.89029 82.2112 10.7158C82.1555 11.8206 81.2449 12.7081 80.1114 12.7624C78.2902 12.8349 76.4691 12.8892 74.6479 12.8892C72.8268 12.8892 71.0057 12.853 69.1845 12.7624C68.051 12.7081 67.1404 11.8206 67.0846 10.7158C66.936 7.89029 66.936 5.08292 67.0846 2.25743C67.1404 1.1526 68.051 0.265105 69.1845 0.210769C71.0057 0.120208 72.8268 0.0839844 74.6479 0.0839844ZM69.2403 1.65973C69.0544 1.65973 68.8872 1.73218 68.7757 1.85897C68.6456 1.98575 68.5713 2.14876 68.5713 2.31177C68.4226 5.0648 68.4226 7.87217 68.5713 10.6252C68.5713 10.8063 68.6642 10.9693 68.7757 11.078C68.9058 11.2048 69.073 11.2772 69.2403 11.2772C71.0243 11.3497 72.8454 11.404 74.6294 11.404C76.4133 11.404 78.2345 11.3678 80.0184 11.2772C80.2043 11.2772 80.3715 11.2048 80.483 11.078C80.6131 10.9512 80.6874 10.7882 80.6874 10.6252C80.8361 7.87217 80.8361 5.0648 80.6874 2.31177C80.6874 2.13065 80.6131 1.96764 80.483 1.85897C80.3529 1.73218 80.1857 1.65973 80.0184 1.65973C78.2345 1.58729 76.4133 1.53295 74.6294 1.53295C72.8454 1.53295 71.0428 1.56917 69.2403 1.65973Z"
                                         fill="#1E1E1E" />
@@ -945,8 +982,9 @@
                                     <path
                                         d="M38.9689 7.20504H37.7424V5.28516H55.8795C57.3847 5.3576 58.574 6.51678 58.6484 7.98385V18.9054C58.574 20.3725 57.3661 21.5317 55.8795 21.6041H38.9689V7.20504ZM56.6786 18.7968V8.07441C56.66 7.83896 56.5671 7.62161 56.3998 7.4586C56.2326 7.2956 56.0096 7.20504 55.768 7.18692H40.9201V19.6661H55.768C56.0096 19.648 56.2326 19.5575 56.3998 19.3945C56.5856 19.2496 56.6786 19.0322 56.6786 18.7968Z"
                                         fill="#FFFEFA" />
-                                </svg></a>
-                        </div>
+                                </svg>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -962,8 +1000,8 @@
             </p>
             <button type="button" class="popup_close" aria-label="Закрыть">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M13 13L1 1M13 1L1 13" stroke="#1782F6" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
+                    <path d="M13 13L1 1M13 1L1 13" stroke="RGBA(72, 160, 255, 1)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -1008,8 +1046,8 @@
             <h3 class="text-h3 fw-medium">Выберите формат и время сессии с психологом</h3>
             <button type="button" class="popup_close" aria-label="Закрыть">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M13 13L1 1M13 1L1 13" stroke="#1782F6" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
+                    <path d="M13 13L1 1M13 1L1 13" stroke="RGBA(72, 160, 255, 1)" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -1155,7 +1193,10 @@
 
             </div>
 
-            <button type="submit" class="button_default submit_btn" id="sessionSubmitBtn">Записаться</button>
+            <div class="session_form_footer">
+                <button type="submit" class="button_default submit_btn" id="sessionSubmitBtn"
+                    disabled>Записаться</button>
+            </div>
         </form>
         <!-- Мини-календарь: один переиспользуемый компонент на весь попап -->
         <div class="mini_calendar card" id="miniCalendar" hidden>
@@ -1192,5 +1233,6 @@
         </div>
     </div>
 </div>
+
 
 </html>
