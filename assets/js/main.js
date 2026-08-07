@@ -242,6 +242,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.nav__item--dropdown').forEach(function (item) {
+        const dropdown = item.querySelector('.nav__dropdown');
+        const link = item.querySelector('.nav__link');
+        let closeTimer;
+
+        document.body.appendChild(dropdown);
+        dropdown.classList.add('nav__dropdown--portal');
+
+        function positionDropdown() {
+            const rect = item.getBoundingClientRect();
+            dropdown.style.top = rect.bottom + 28 + 'px';
+            dropdown.style.left = rect.left + 'px';
+        }
+
+        function openDropdown() {
+            clearTimeout(closeTimer);
+            positionDropdown();
+            dropdown.classList.add('is-open');
+        }
+
+        function closeDropdown() {
+            closeTimer = setTimeout(function () {
+                dropdown.classList.remove('is-open');
+            }, 200);
+        }
+
+        item.addEventListener('mouseenter', openDropdown);
+        item.addEventListener('mouseleave', closeDropdown);
+
+        dropdown.addEventListener('mouseenter', function () {
+            clearTimeout(closeTimer);
+        });
+        dropdown.addEventListener('mouseleave', closeDropdown);
+
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            dropdown.classList.contains('is-open') ? closeDropdown() : openDropdown();
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!item.contains(e.target) && !dropdown.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            if (dropdown.classList.contains('is-open')) positionDropdown();
+        });
+    });
+});
 
 // динамическое открытие попапа
 document.addEventListener('click', (e) => {
@@ -267,6 +318,87 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('specialistToggle');
+    const dropdown = document.getElementById('specialistDropdown');
+    const input = document.getElementById('specialistInput');
+    const searchInput = document.getElementById('specialistSearchInput');
+    const searchClear = document.getElementById('specialistSearchClear');
+    const list = document.getElementById('specialistList');
+    const empty = document.getElementById('specialistEmpty');
+    const options = list.querySelectorAll('.specialist_option');
+
+    if (!toggle) return;
+
+    function openDropdown() {
+        dropdown.hidden = false;
+        toggle.classList.add('expanded');
+        searchInput.value = '';
+        filterOptions('');
+        searchClear.hidden = true;
+        searchInput.focus();
+    }
+
+    function closeDropdown() {
+        dropdown.hidden = true;
+        toggle.classList.remove('expanded');
+    }
+
+    toggle.addEventListener('click', function () {
+        dropdown.hidden ? openDropdown() : closeDropdown();
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !dropdown.contains(e.target)) {
+            closeDropdown();
+        }
+    });
+
+    function filterOptions(query) {
+        const q = query.trim().toLowerCase();
+        let visibleCount = 0;
+
+        options.forEach(function (option) {
+            const name = option.dataset.name.toLowerCase();
+            const role = option.dataset.role.toLowerCase();
+            const match = name.includes(q) || role.includes(q);
+            option.hidden = !match;
+            if (match) visibleCount++;
+        });
+
+        empty.hidden = visibleCount !== 0;
+    }
+
+    searchInput.addEventListener('input', function () {
+        searchClear.hidden = searchInput.value.length === 0;
+        filterOptions(searchInput.value);
+    });
+
+    searchClear.addEventListener('click', function () {
+        searchInput.value = '';
+        searchClear.hidden = true;
+        filterOptions('');
+        searchInput.focus();
+    });
+
+    options.forEach(function (option) {
+        option.addEventListener('click', function () {
+            options.forEach(function (o) { o.classList.remove('selected'); });
+            option.classList.add('selected');
+
+            input.value = option.dataset.value;
+            toggle.querySelector('.specialist_avatar').src = option.dataset.avatar;
+            toggle.querySelector('.specialist_name').textContent = option.dataset.name;
+            toggle.querySelector('.specialist_role').textContent = option.dataset.role;
+
+            closeDropdown();
+        });
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !dropdown.hidden) closeDropdown();
+    });
+});
 
 // календарь дата или год/месяц
 document.addEventListener('DOMContentLoaded', function () {
@@ -600,5 +732,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             popup.classList.add('active');
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    let audienceSwiper;
+    const mq = window.matchMedia('(max-width: 768px)');
+
+    function toggleAudienceSwiper() {
+        if (mq.matches && !audienceSwiper) {
+            audienceSwiper = new Swiper('.audience_cards_slider', {
+                slidesPerView: 1.40,
+                spaceBetween: 16,
+            });
+        } else if (!mq.matches && audienceSwiper) {
+            audienceSwiper.destroy(true, true);
+            audienceSwiper = undefined;
+        }
+    }
+
+    toggleAudienceSwiper();
+    mq.addEventListener('change', toggleAudienceSwiper);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burgerBtn.addEventListener('click', function () {
+        burgerBtn.classList.toggle('is-active');
+        mobileMenu.classList.toggle('is-active');
     });
 });
