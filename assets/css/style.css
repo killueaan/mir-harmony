@@ -4691,7 +4691,7 @@ span.weekend {
 
     /* popup */
     .popup_session,
-    .popup_feedback {
+    .popup_feedback,.popup_comment {
         margin: 0 16px;
         padding: 24px 16px;
     }
