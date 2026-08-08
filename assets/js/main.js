@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function positionDropdown() {
             const rect = item.getBoundingClientRect();
             dropdown.style.top = rect.bottom + 28 + 'px';
-            dropdown.style.left = rect.left + 'px';
+            // dropdown.style.left = rect.left + 'px';
         }
 
         function openDropdown() {
